@@ -9,7 +9,7 @@ import Foundation
 
 struct User: Identifiable {
     let id: String
-    let emai: String
+    let email: String
 //    let password: String
     
 }

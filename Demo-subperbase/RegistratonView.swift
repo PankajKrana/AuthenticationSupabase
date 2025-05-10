@@ -42,7 +42,7 @@ struct RegistratonView: View {
                         .padding(12)
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
-                        .padding(.horizontal)
+                    
 
                     if !password.isEmpty && !confirmedPassword.isEmpty {
                         Image(systemName: passwordsMatch ? "checkmark.circle.fill" : "xmark.circle.fill")
@@ -72,7 +72,9 @@ struct RegistratonView: View {
             }
 
             Button {
-                signUp()
+                withAnimation(.snappy) {
+                    signUp()
+                }
             } label: {
                 Text("Sign Up")
                     .font(.headline)
@@ -95,6 +97,7 @@ struct RegistratonView: View {
             } label: {
                 HStack(spacing: 3) {
                     Text("Already have an account?")
+                    
                     Text("Sign In")
                         .fontWeight(.semibold)
                 }
@@ -113,10 +116,11 @@ private extension RegistratonView {
     }
 
     var formIsValid: Bool {
-        return email.isValid() && passwordsMatch
+        return email.isValidEmail() && passwordsMatch
     }
 }
 
 #Preview {
     RegistratonView()
+        .environment(Authmanager())
 }

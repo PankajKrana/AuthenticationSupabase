@@ -10,8 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @Environment(Authmanager.self) private var authManager
     
-    @State private var email = " "
-    @State private var password = " "
+    @State private var email = ""
+    @State private var password = ""
     
     var body: some View {
         NavigationStack {
@@ -38,14 +38,18 @@ struct LoginView: View {
                         .padding(12)
                         .background(Color(.systemGray6))
                         .cornerRadius(20)
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 24)
                 }
-                Button { signIn() } label: {
+                Button {
+                    withAnimation {
+                        signIn()
+                    }
+                     } label: {
                     Text("Login")
                         .font(.headline)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                         .frame(width: 352, height: 44)
-                        .background(Color(.systemGreen))
+                        .background(Color(.systemBlue))
                         .cornerRadius(20)
                 }
                 .disabled(!formIsValid)
@@ -80,14 +84,16 @@ private extension LoginView {
     }
     
     var formIsValid: Bool {
-        return email.isValid() && !password.isEmpty
+        return email.isValidEmail() && !password.isEmpty
     }
 }
 
 extension String {
-    func isValid() -> Bool {
-        return range(of: "@", options: .literal, range: nil, locale: nil) != nil
-    }
+    func isValidEmail() -> Bool {
+        let regex = #"^[A-Z0-9a-z,_%+-]+@[A-Za-z09,-]+\.[A-Za-z]{2,}$"#
+        
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
+        }
 }
 
 #Preview {

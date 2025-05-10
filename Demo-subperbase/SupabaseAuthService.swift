@@ -24,7 +24,7 @@ struct SupabaseAuthService {
             print("Debug no email")
             throw NSError()
         }
-        return User(id: response.user.aud, emai: email)
+        return User(id: response.user.aud, email: email)
     }
     
     
@@ -36,7 +36,7 @@ struct SupabaseAuthService {
             throw NSError()
         }
         
-        return User(id: response.user.aud, emai: email)
+        return User(id: response.user.aud, email: email)
     }
     
     func signOut() async throws {
@@ -50,6 +50,6 @@ struct SupabaseAuthService {
             print("Debug: No email")
             throw NSError()
         }
-        return User(id: supabaseUser.aud, emai: email)
+        return User(id: supabaseUser.aud, email: email)
     }
 }
